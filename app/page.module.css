@@ -1,0 +1,29 @@
+.orm {
+  margin-top: 1rem;
+  font-size: 36px;
+}
+.ormDate {
+  color: grey;
+  display: block;
+  font-size: 22px;
+}
+.details {
+  border: 1px solid teal;
+  padding: .5rem;
+}
+.reps {
+  font-size: 64px;
+}
+.repsX {
+  font-size: 32px;
+  color: grey;
+  padding: 0 8px;
+}
+.setWeightUnit{
+  font-size: 24px;
+  color: rgb(47, 47, 47);
+  padding-left: 3px;
+}
+.setWeightAmount {
+  font-size: 64px;
+}
