@@ -15,15 +15,49 @@
   font-size: 64px;
 }
 .repsX {
-  font-size: 32px;
+  font-size: 48px;
   color: grey;
-  padding: 0 8px;
+  padding: 0 16px;
+  display: inline-block;
+  line-height: 0;
 }
 .setWeightUnit{
-  font-size: 24px;
   color: rgb(47, 47, 47);
   padding-left: 3px;
+  font-size: 24px;
 }
-.setWeightAmount {
+.liftAmount{
   font-size: 64px;
+}
+.liftUnit {
+  font-size: 28px;
+}
+.ormPercentage {
+  margin-bottom: .25rem;
+}
+.set {
+  margin-bottom: 1rem;
+}
+
+.ormPercentage {
+opacity: .8;
+}
+
+.sets {
+  margin-left: 1rem;
+}
+.lift {
+  display: 'flex';
+  align-items: center;
+  justify-content: center;
+}
+.diffPercentage {
+  opacity: .7;
+}
+
+.settings {
+  font-size: 22px;
+}
+.graphRow {
+  background-color: rgba(71, 0, 125, 0.255);
 }

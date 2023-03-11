@@ -1,5 +1,7 @@
 html {
   font-size: 32px;
+  background-color: rgb(13, 1, 14);
+  color: rgb(250, 239, 228);
 }
 
 input {
