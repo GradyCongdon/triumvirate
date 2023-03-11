@@ -1,18 +1,28 @@
-import { WorkoutRegiment, ExerciseId, Person } from "./types";
+import {
+  benchPress,
+  calfRaise,
+  deadlift,
+  dumbellCurl,
+  dumbellRow,
+  ExerciseId,
+  goodMorning,
+} from "@/types/Exercise";
+import { WorkoutId, WorkoutRegiment, WorkoutTemplateId } from "@/types/Workout";
+import { Person } from "./types/Person";
 
 export const triumv: WorkoutRegiment = {
   id: "Triumv",
-  setExercises: {
+  workouts: {
     "Day 1": {
       id: "Day 1",
-      exercises: ["benchPress", "dumbbell curl", "dumbbell row"],
+      exercises: [benchPress, dumbellCurl, dumbellRow],
     },
     "Day 2": {
       id: "Day 2",
-      exercises: ["deadlift", "good morning", "calf raise"],
+      exercises: [deadlift, goodMorning, calfRaise],
     },
   },
-  exerciseSetTemplate: {
+  workoutTemplates: {
     "Week 1": {
       id: "Week 1",
       sets: [
@@ -47,7 +57,7 @@ export const triumv: WorkoutRegiment = {
     },
   },
 };
-export const benchPress: ExerciseId = "benchPress";
+
 export const grady: Person = {
   id: "Grady",
   exerciseORMs: {
@@ -58,24 +68,38 @@ export const grady: Person = {
   },
 };
 
-export const exampleState = {
+type StepSize = number;
+type ShowSection = boolean;
+
+export type State = {
+  id: number;
+  workoutRegiment: WorkoutRegiment;
+  person: Person;
+  workoutTemplateId: WorkoutTemplateId;
+  workoutId: WorkoutId;
+  exerciseId: ExerciseId;
+  stepSize: StepSize;
+  showSection: ShowSection;
+};
+
+export const exampleState: State = {
   id: 1,
   workoutRegiment: triumv,
   person: grady,
-  exerciseSetTemplateId: "Week 1",
-  workoutSetId: "Day 1",
+  workoutTemplateId: "Week 1",
+  workoutId: "Day 1",
   exerciseId: benchPress,
   stepSize: 5,
   showSection: false,
 };
 
-export const isValid = (state: any): state is typeof exampleState => {
+export const isValid = (state: any): boolean => {
   return (
     state &&
     state.workoutRegiment &&
     state.person &&
-    state.exerciseSetTemplateId &&
-    state.workoutSetId &&
+    state.workoutTemplateId &&
+    state.workoutId &&
     state.exerciseId &&
     state.stepSize &&
     state.showSection

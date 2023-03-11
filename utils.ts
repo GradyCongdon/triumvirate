@@ -1,4 +1,4 @@
-import { Weight } from "./types";
+import { Weight } from "@/types/Weight";
 
 export const formatDecimalPercentage = (num: number) => {
   const _diffPercent = (num * 100).toFixed(1);
@@ -6,20 +6,29 @@ export const formatDecimalPercentage = (num: number) => {
   return diffPercent;
 };
 
-type WeightDiff = {
+type Sign = "+" | "-" | "";
+type Diff = {
   amount: number;
   percent: number;
-  sign: "+" | "-";
+  sign: Sign;
 };
-export const getWeightDiff = (a: Weight, b: Weight): WeightDiff => {
+export const getWeightDiff = (a: Weight, b: Weight): Diff => {
   const diff = a.amount - b.amount;
   const diffDecimal = diff / a.amount;
   const diffPercent = formatDecimalPercentage(diffDecimal);
+  let sign;
+  if (diff === 0) {
+    sign = "";
+  } else if (diff > 0) {
+    sign = "+";
+  } else {
+    sign = "-";
+  }
 
   return {
     amount: diff,
     percent: diffPercent,
-    sign: diff >= 0 ? "+" : "-",
+    sign: sign as Sign,
   };
 };
 

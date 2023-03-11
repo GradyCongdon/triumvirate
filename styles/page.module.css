@@ -9,7 +9,7 @@
 }
 .details {
   border: 1px solid teal;
-  padding: .5rem;
+  padding: 0.5rem;
 }
 .reps {
   font-size: 64px;
@@ -21,38 +21,38 @@
   display: inline-block;
   line-height: 0;
 }
-.setWeightUnit{
+.setWeightUnit {
   color: rgb(47, 47, 47);
   padding-left: 3px;
   font-size: 24px;
 }
-.liftAmount{
+.liftAmount {
   font-size: 64px;
 }
 .liftUnit {
   font-size: 28px;
 }
 .ormPercentage {
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
 }
 .set {
   margin-bottom: 1rem;
 }
 
 .ormPercentage {
-opacity: .8;
+  opacity: 0.8;
 }
 
 .sets {
   margin-left: 1rem;
 }
 .lift {
-  display: 'flex';
+  display: "flex";
   align-items: center;
   justify-content: center;
 }
 .diffPercentage {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .settings {
@@ -60,4 +60,7 @@ opacity: .8;
 }
 .graphRow {
   background-color: rgba(71, 0, 125, 0.255);
+}
+.breadcrumbLabels {
+  font-size: 28px;
 }

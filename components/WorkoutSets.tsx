@@ -1,14 +1,14 @@
-"use client";
-import { useState } from "react";
-import styles from "./page.module.css";
-import { Exercise, ExerciseSet } from "./types";
+import styles from "@/styles/page.module.css";
+import { Exercise } from "@/types/Exercise";
+import { ExerciseSet } from "@/types/Workout";
 import {
-  getClosestDumbell,
-  formatWeight,
-  getOrmDecimalWeight,
-  getWeightDiff,
   formatDecimalPercentage,
-} from "./utils";
+  formatWeight,
+  getClosestDumbell,
+  getOrmDecimalWeight,
+  getWeightDiff
+} from "@/utils";
+import { useState } from "react";
 
 type WorkoutSetsProps = {
   sets: ExerciseSet[];

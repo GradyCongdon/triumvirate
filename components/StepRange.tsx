@@ -1,4 +1,3 @@
-"use client";
 type StepRangeProps = {
   stepSize: number;
   onChange: (stepSize: number) => void;

@@ -1,168 +1,151 @@
 "use client";
-import { useEffect, useState } from "react";
-import styles from "./page.module.css";
-import { exampleState, isValid } from "./data";
-import {
-  WorkoutRegiment,
-  ExerciseId,
-  Person,
-  ExerciseSetTemplateId,
-  OrmMap,
-} from "./types";
-import { WorkoutSetTemplate } from "./WorkoutSetTemplate";
-import { OrmTable } from "./OrmTable";
-import { WorkoutSets } from "./WorkoutSets";
-import { ExerciseSelect } from "./ExerciseSelect";
-import { StepRange } from "./StepRange";
-import { ExerciseORM } from "./ExerciseORM";
-import { WorkoutTemplate } from "./WorkoutTemplate";
-import { getLocalStorage, setLocalStorage } from "./localStorage";
-import { getOrmDecimalWeight } from "./utils";
+import styles from "@/styles/page.module.css";
+
+import { ExerciseORM } from "@/components/ExerciseORM";
+import { OrmTable } from "@/components/OrmTable";
+import { Select } from "@/components/Select";
+import { StepRange } from "@/components/StepRange";
+import { WorkoutSets } from "@/components/WorkoutSets";
+import { useHasRendered } from "@/hooks/useHasRendered";
+import { useStoredState } from "@/hooks/useStoredState";
+import { Person } from "@/types/Person";
+
+const BreadcrumbSeparator = () => <span> &gt; </span>;
 
 export default function Home() {
-  const localState = getLocalStorage("state");
-  const _state = isValid(localState) ? localState : exampleState;
-  const [state, setState] = useState(_state);
-
-  const [workoutRegiment, setWorkoutRegiment] = useState<WorkoutRegiment>(
-    state.workoutRegiment
-  );
-  const [person, setPerson] = useState<Person>(state.person);
-  const [exerciseSetTemplateId, setWorkoutId] = useState<ExerciseSetTemplateId>(
-    state.exerciseSetTemplateId
-  );
-  const [workoutSetId, setWorkoutSetId] = useState<ExerciseSetTemplateId>(
-    state.workoutSetId
-  );
-  const [exerciseId, setExerciseId] = useState<ExerciseId>(state.exerciseId);
-  const [stepSize, setStepSize] = useState<number>(state.stepSize);
-  const [showSection, setShowSection] = useState<boolean>(state.showSection);
-
-  const [hasRendered, setHasRendered] = useState<boolean>(false);
-
-  useEffect(() => {
-    setHasRendered(true);
-  }, []);
-  useEffect(() => {
-    const state = {
-      id: 1,
-      workoutRegiment,
-      person,
-      exerciseSetTemplateId,
-      workoutSetId,
-      exerciseId,
-      stepSize,
-      showSection,
-    };
-    setLocalStorage("state", state);
-    setState(state);
-  }, [
+  const {
     workoutRegiment,
+    setWorkoutRegiment,
     person,
-    exerciseSetTemplateId,
-    workoutSetId,
+    setPerson,
+    workoutTemplateId,
+    setWorkoutTemplateId,
+    workoutId,
+    setWorkoutId,
     exerciseId,
+    setExerciseId,
     stepSize,
-    showSection,
-  ]);
+    setStepSize,
+  } = useStoredState();
+  const hasRendered = useHasRendered();
   if (!hasRendered) return null;
 
-  const workoutExercise = {
-    exerciseId,
-    ...workoutRegiment.exerciseSetTemplate[exerciseSetTemplateId],
-  };
-  const sets = workoutExercise.sets;
+  const allPeople = [person.id];
+  const allWorkoutRegiments = [workoutRegiment.id];
+  const allWorkoutTemplates = Object.keys(workoutRegiment.workoutTemplates);
+  const allWorkouts = Object.keys(workoutRegiment.workouts);
 
-  const exercise = person.exerciseORMs[exerciseId];
-  if (!exercise) {
-    return (
-      <main>
-        No ORM set
-        <ExerciseSelect
-          workoutRegiment={workoutRegiment}
-          workoutSetId={workoutSetId}
-          exerciseId={exerciseId}
-          onChange={setExerciseId}
+  const selectedWorkoutTemplate =
+    workoutRegiment.workoutTemplates[workoutTemplateId];
+  const selectedSets = selectedWorkoutTemplate.sets;
+  const selectedWorkout = workoutRegiment.workouts[workoutId];
+  const selectedWorkoutExercises = selectedWorkout.exercises;
+
+  const selectedExerciseORM = person.exerciseORMs[exerciseId];
+
+  const Breadcrumbs = (
+    <div className={styles.breadcrumbs}>
+      <span className={styles.breadcrumb}>
+        <Select options={allPeople} value={person.id} onChange={setPerson} />
+      </span>
+      <BreadcrumbSeparator />
+      <span className={styles.breadcrumb}>
+        <Select
+          options={allWorkoutRegiments}
+          value={workoutRegiment.id}
+          onChange={setWorkoutRegiment}
         />
-        <input id="orm" type="number" />
-        <button
-          onClick={() => {
-            const input = document.getElementById("orm");
-            if (!input) return;
-            const inputValue = (input as HTMLInputElement).value;
-            if (!inputValue) return;
-            const value = parseFloat(inputValue);
-            const _person = {
-              ...person,
-              exerciseORMs: {
-                ...person.exerciseORMs,
-                [exerciseId]: {
-                  date: new Date().toISOString(),
-                  weight: {
-                    amount: value,
-                    unit: "kg",
-                  },
-                },
-              },
-            };
-            setPerson(_person as Person);
-          }}
-        >
-          Set ORM
-        </button>
-      </main>
-    );
-  }
-  const personExerciseWeight = exercise.weight;
-  const allOrmWeights: OrmMap = {};
-  for (let i = 100; i > 0; ) {
-    const decimal = i / 100;
-    const weight = getOrmDecimalWeight(personExerciseWeight, decimal);
-    allOrmWeights[i] = weight;
-    i -= stepSize;
-  }
-
-  return (
-    <main>
-      <button onClick={() => setShowSection(!showSection)}>
-        {showSection ? "Hide" : "Info"}
-      </button>
-      <section
-        className={styles.details}
-        style={{ display: showSection ? "block" : "none" }}
-      >
-        <p>Person: {person.id}</p>
-        <p>Regiment: {workoutRegiment.id}</p>
-
-        <WorkoutTemplate
-          workoutRegiment={workoutRegiment}
-          workoutId={exerciseSetTemplateId}
+      </span>
+      <BreadcrumbSeparator />
+      <span className={styles.breadcrumb}>
+        <Select
+          options={allWorkoutTemplates}
+          value={workoutTemplateId}
+          onChange={setWorkoutTemplateId}
+        />
+      </span>
+      <BreadcrumbSeparator />
+      <span className={styles.breadcrumb}>
+        <Select
+          options={allWorkouts}
+          value={workoutId}
           onChange={setWorkoutId}
         />
-        <WorkoutSetTemplate
-          workoutRegiment={workoutRegiment}
-          workoutSetId={workoutSetId}
-          onChange={setWorkoutSetId}
+      </span>
+      <BreadcrumbSeparator />
+      <span className={styles.breadcrumb}>
+        <Select
+          options={selectedWorkoutExercises}
+          value={exerciseId}
+          onChange={setExerciseId}
         />
-      </section>
+      </span>
+    </div>
+  );
+  const BreadcrumbLabels = (
+    <div className={styles.breadcrumbLabels}>
+      <span className={styles.breadcrumb}>Person</span>
+      <BreadcrumbSeparator />
+      <span className={styles.breadcrumb}>Regiment</span>
+      <BreadcrumbSeparator />
+      Template
+      <BreadcrumbSeparator />
+      <span className={styles.breadcrumb}>Workout</span>
+      <BreadcrumbSeparator />
+      <span className={styles.breadcrumb}>Exercise</span>
+    </div>
+  );
 
-      <ExerciseSelect
-        workoutRegiment={workoutRegiment}
-        workoutSetId={workoutSetId}
-        exerciseId={exerciseId}
-        onChange={setExerciseId}
-      />
+  const MissingORM = (
+    <>
+      No ORM set
+      <input id="orm" type="number" />
+      <button
+        onClick={() => {
+          const input = document.getElementById("orm");
+          if (!input) return;
+          const inputValue = (input as HTMLInputElement).value;
+          if (!inputValue) return;
+          const value = parseFloat(inputValue);
+          const _person = {
+            ...person,
+            exerciseORMs: {
+              ...person.exerciseORMs,
+              [exerciseId]: {
+                date: new Date().toISOString(),
+                weight: {
+                  amount: value,
+                  unit: "kg",
+                },
+              },
+            },
+          };
+          setPerson(_person as Person);
+        }}
+      >
+        Set ORM
+      </button>
+    </>
+  );
 
-      <WorkoutSets sets={sets} exercise={exercise} />
-
+  const Exercise = () => (
+    <>
+      <WorkoutSets sets={selectedSets} exercise={selectedExerciseORM} />
       <ExerciseORM
-        exercise={exercise}
+        exercise={selectedExerciseORM}
         exerciseId={exerciseId}
-        personExerciseWeight={personExerciseWeight}
+        personExerciseWeight={selectedExerciseORM.weight}
       />
       <br />
       <StepRange stepSize={stepSize} onChange={setStepSize} />
-      <OrmTable ormMap={allOrmWeights} />
+      <OrmTable exercise={selectedExerciseORM} stepSize={stepSize} />
+    </>
+  );
+  return (
+    <main>
+      {BreadcrumbLabels}
+      {Breadcrumbs}
+      {!selectedExerciseORM ? MissingORM : Exercise()}
     </main>
   );
 }

@@ -1,4 +1,3 @@
-"use client";
 export const getLocalStorage = (key: string) => {
   let ls;
   try {

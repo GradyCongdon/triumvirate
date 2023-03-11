@@ -1,6 +1,6 @@
-"use client";
-import styles from "./page.module.css";
-import { ExerciseId, Weight, Exercise } from "./types";
+import styles from "@/styles/page.module.css";
+import { Exercise, ExerciseId } from "@/types/Exercise";
+import { Weight } from "@/types/Weight";
 
 type ExerciseOrmProps = {
   personExerciseWeight: Weight;
