@@ -1,4 +1,4 @@
-import styles from "@/styles/page.module.css";
+import styles from "@/styles/page.module.scss";
 import { Exercise, ExerciseId } from "@/types/Exercise";
 import { Weight } from "@/types/Weight";
 

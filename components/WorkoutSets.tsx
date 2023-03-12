@@ -1,4 +1,3 @@
-import styles from "@/styles/page.module.css";
 import { Exercise } from "@/types/Exercise";
 import { ExerciseSet } from "@/types/Workout";
 import {
@@ -6,22 +5,34 @@ import {
   formatWeight,
   getClosestDumbell,
   getOrmDecimalWeight,
-  getWeightDiff
+  getWeightDiff,
 } from "@/utils";
 import { useState } from "react";
+import styles from "./WorkoutSets.module.scss";
 
+type Checked = Record<number, boolean>;
 type WorkoutSetsProps = {
   sets: ExerciseSet[];
   exercise: Exercise;
 };
 export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
+  const [showTags, setShowTags] = useState(false);
   const [showActualWeight, setShowActualWeight] = useState(false);
   const [showDumbellOrm, setShowDumbellOrm] = useState(false);
   const [showPercentage, setShowPercentage] = useState(true);
+  const defaultChecked = sets.reduce((acc, s) => {
+    acc[s.ormDecimal] = false;
+    return acc;
+  }, {} as Checked);
+
+  const [checked, setChecked] = useState<Checked>(defaultChecked);
+  const set = (checked: Checked, s: number) => {
+    setChecked({ ...checked, [s]: !checked[s] });
+  };
 
   return (
-    <div>
-      <p>Sets: </p>
+    <div className={styles.sets}>
+      <h1>Sets</h1>
       <div className={styles.sets}>
         {sets.map((s) => {
           const reps = s.repetitions;
@@ -29,7 +40,7 @@ export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
           let weight = getOrmDecimalWeight(exercise.weight, s.ormDecimal);
           const closestDumbell = getClosestDumbell(weight);
           const diff = getWeightDiff(closestDumbell, weight);
-          const diffColor = diff.sign === "+" ? "green" : "red";
+          const diffColor = diff.sign === "+" ? "var(--green)" : "var(--red)";
           const ormPercentage = formatDecimalPercentage(s.ormDecimal);
           const trueOrmAmount = closestDumbell.amount / exercise.weight.amount;
           const trueOrmPercentage = formatDecimalPercentage(trueOrmAmount);
@@ -38,26 +49,39 @@ export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
 
           return (
             <div key={key} className={styles.set}>
-              <div className={styles.lift}>
-                <span className={styles.reps}>{reps}</span>
-                <span className={styles.repsX}>&times;</span>
-                <span className={styles.liftAmount}>{liftFormat.rounded}</span>
-                <span className={styles.liftUnit}> {weight.unit}</span>
-              </div>
-              <div>
-                <span className={styles.ormPercentage}>
-                  {showDumbellOrm ? trueOrmPercentage : ormPercentage}% ORM
-                  <span
-                    className={styles.diffPercentage}
-                    style={{
-                      color: diffColor,
-                      display: !showPercentage ? "none" : "initial",
-                    }}
-                  >
-                    {" "}
-                    ({diff.percent}%)
+              <div className={styles.ll}>
+                <div className={styles.lift}>
+                  <span className={styles.reps}>{reps}</span>
+                  <span className={styles.repsX}>&times;</span>
+                  <span className={styles.liftAmount}>
+                    {liftFormat.rounded}
                   </span>
-                </span>
+                  <span className={styles.liftUnit}> {weight.unit}</span>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={checked[s.ormDecimal]}
+                  onChange={() => set(checked, s.ormDecimal)}
+                  className={styles.mark}
+                ></input>
+              </div>
+              <div
+                className={styles.tags}
+                style={{ display: showTags ? "flex" : "none" }}
+              >
+                <div className={styles.orm}>
+                  {showDumbellOrm ? trueOrmPercentage : ormPercentage}% ORM
+                </div>
+                <div
+                  className={styles.diff}
+                  style={{
+                    backgroundColor: diffColor,
+                    display: !showPercentage ? "none" : "initial",
+                  }}
+                >
+                  {diff.sign === "+" ? "+" : ""}
+                  {diff.percent}%
+                </div>
               </div>
             </div>
           );
@@ -72,6 +96,16 @@ export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
             name="showActualWeight"
             checked={showActualWeight}
             onChange={() => setShowActualWeight(!showActualWeight)}
+          />
+        </div>
+        <div>
+          Show Tags:
+          <input
+            type="checkbox"
+            id="showTags"
+            name="showTags"
+            checked={showTags}
+            onChange={() => setShowTags(!showTags)}
           />
         </div>
         <div>

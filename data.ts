@@ -11,7 +11,7 @@ import { WorkoutId, WorkoutRegiment, WorkoutTemplateId } from "@/types/Workout";
 import { Person } from "./types/Person";
 
 export const triumv: WorkoutRegiment = {
-  id: "Triumv",
+  id: "Triumvirate",
   workouts: {
     "Day 1": {
       id: "Day 1",

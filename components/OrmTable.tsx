@@ -1,8 +1,11 @@
-import styles from "@/styles/page.module.css";
+import styles from "@/styles/page.module.scss";
 import { Exercise } from "@/types/Exercise";
 import { OrmDecimalWeights } from "@/types/Weight";
 import {
-  formatWeight, getClosestDumbell, getOrmDecimalWeight, getWeightDiff
+  formatWeight,
+  getClosestDumbell,
+  getOrmDecimalWeight,
+  getWeightDiff,
 } from "@/utils";
 
 type OrmTableProps = {
@@ -27,10 +30,12 @@ export const OrmTable = ({ exercise, stepSize }: OrmTableProps) => {
     <div>
       <table>
         <thead>
-          <th>ORM</th>
-          <th>Actual</th>
-          <th>Diff %</th>
-          <th>Dumbell</th>
+          <tr>
+            <th>ORM</th>
+            <th>Actual</th>
+            <th>Diff %</th>
+            <th>Dumbell</th>
+          </tr>
         </thead>
         <tbody>
           {Object.keys(ormMap)

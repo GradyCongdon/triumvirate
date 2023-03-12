@@ -1,4 +1,4 @@
-import "@/styles/globals.css";
+import "@/styles/globals.scss";
 import { Manrope as Font } from "next/font/google";
 
 const font = Font({ subsets: ["latin"] });

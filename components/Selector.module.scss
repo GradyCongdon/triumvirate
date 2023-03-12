@@ -1,0 +1,28 @@
+.selector {
+  padding: 0.25rem 0;
+  border-bottom: 0.5px solid var(--bg-medium);
+  margin: 0 1rem;
+  &:last-child {
+    border-bottom: 0;
+  }
+  label {
+    font-size: 0.7rem;
+  }
+  select {
+    appearance: none;
+    display: block;
+    border: 0;
+    width: calc(100%);
+    padding: 0 0.5rem;
+    margin-top: -0.25rem;
+
+    border: 0;
+    font-weight: 600;
+    font-size: 1.25rem;
+    :focus-visible,
+    :focus-within,
+    :focus {
+      outline: 1px solid var(--accent);
+    }
+  }
+}

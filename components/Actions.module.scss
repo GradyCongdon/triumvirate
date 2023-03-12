@@ -1,0 +1,54 @@
+.actions {
+  display: grid;
+  grid-template-columns: var(--header-size) 1fr var(--header-size);
+  grid-template-rows: var(--header-size);
+  background-color: var(--background);
+  position: relative;
+  z-index: 100;
+  transform: translate(0, 0);
+  div,
+  button {
+    border: 1px solid var(--bg-medium);
+    background: none;
+    font-size: 2.5rem;
+    font-weight: 100;
+    color: var(--color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+
+    :focus-visible,
+    :focus-within,
+    :focus {
+      outline: 1px solid var(--accent);
+    }
+    :hover {
+      color: var(--accent);
+    }
+  }
+  div:nth-child(2) {
+    border-left: 0;
+    border-right: 0;
+  }
+  .title {
+    // font-size: clamp(1rem, 5vw, 1.25rem);
+    font-size: 1.25rem;
+  }
+  .logo {
+    font-size: 1.7rem;
+    text-shadow: 0 0 3px var(--accent);
+    filter: blur(0.5px);
+    // transform: rotate(-2deg);
+  }
+}
+
+.times {
+  transition: transform 0.2s ease-in-out;
+  transform: rotate(0deg);
+}
+.plus {
+  transition: transform 0.2s ease-in-out;
+  transform: rotate(45deg);
+}

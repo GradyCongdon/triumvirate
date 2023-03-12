@@ -1,0 +1,165 @@
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+}
+/*
+  3. Allow percentage-based heights in the application
+*/
+html,
+body {
+  height: 100%;
+}
+/*
+  Typographic tweaks!
+  4. Add accessible line-height
+  5. Improve text rendering
+*/
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+/*
+  6. Improve media defaults
+*/
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+/*
+  7. Remove built-in form typography styles
+*/
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+/*
+  8. Avoid text overflows
+*/
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+/*
+  9. Create a root stacking context
+*/
+#root,
+#__next {
+  isolation: isolate;
+}
+:root {
+  --purple-bg: rgb(20, 2, 22);
+  // --purple-bg: rgb(52, 32, 103);
+  --white-purple: rgb(250, 239, 228);
+  // --purple-accent: rgb(53, 0, 57);
+  --purple-accent: rgb(249, 214, 33);
+  --yellow: rgb(254, 254, 34);
+  --yellow-black: rgb(3, 4, 1);
+  //rgb 136	56	72
+  --red: rgba(159, 2, 33, 0.725);
+  --green: rgba(21, 89, 0, 0.623);
+  //--neon 204	250	71
+  --neon: rgb(204, 250, 71);
+  --dark: rgb(32, 32, 35);
+  --background-html: rgb(29, 29, 32);
+  --medium: rgb(52, 52, 55);
+  --bg-medium: rgb(52, 52, 55);
+  --white: rgb(234, 234, 234);
+
+  // --background: var(--purple-bg);
+  // --background: var(--red);
+  --background: var(--dark);
+
+  // --color: var(--white-purple);
+  --color: var(--white);
+  // --accent: var(--purple-accent);
+  --accent: var(--neon);
+  --header-size: 72px;
+  --max-width: 580px;
+
+  // --background: var(--yellow);
+  // --color: var(--yellow-black);
+  // --accent: var(--yellow-black);
+
+  // --background: var(--yellow-black);
+  // --color: var(--yellow);
+  // --accent: var(--yellow);
+}
+html {
+  font-size: 18px;
+  background-color: var(--background-html);
+  color: var(--color);
+  font-weight: 100;
+  // @media screen and (min-width: 768px) {
+  //   font-size: 32px;
+  // }
+}
+body {
+  background-color: var(--background);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  @media screen and (min-width: 768px) {
+    border: 1px solid var(--bg-medium);
+  }
+}
+
+// input {
+//   padding: 0.5rem;
+//   font-size: 32px;
+// }
+// td {
+//   padding: 4px;
+// }
+main {
+  padding-top: var(--header-size);
+}
+input {
+  accent-color: var(--accent);
+}
+select {
+  padding: 0;
+  margin: 2px 0px;
+  border-radius: 1px;
+  font-size: 0.7rem;
+  background-color: var(--background);
+  color: var(--color);
+}
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//   margin: 8px;
+// }
+// h1 {
+//   font-weight: normal;
+// }
+// h3 {
+//   font-weight: normal;
+// }
+// th,
+// td {
+//   text-align: center;
+//   border-bottom: 1px solid black;
+// }
