@@ -35,11 +35,18 @@ export const getWeightDiff = (a: Weight, b: Weight): Diff => {
 type WeightFormatted = {
   rounded: string;
   withUnit: string;
+  ones: string;
+  decimal: string;
+  unit: Weight["unit"];
 };
 export const formatWeight = (weight: Weight): WeightFormatted => {
   const rounded = roundDecimal(weight.amount);
+  const [ones, decimal] = rounded.split(".");
   return {
     rounded,
+    ones,
+    decimal,
+    unit: weight.unit,
     withUnit: `${rounded} ${weight.unit}`,
   };
 };
@@ -52,8 +59,11 @@ export const getOrmDecimalWeight = (
   unit: ormWeight.unit,
 });
 
-export const roundDecimal = (num: number) =>
-  (Math.round(num * 10) / 10).toFixed(1);
+export const roundDecimal = (num: number) => {
+  const rounded = Math.round(num * 10) / 10;
+  const precision = rounded > 100 ? 1 : 1;
+  return rounded.toFixed(precision);
+};
 
 export const findClosest = (num: number, arr: number[]) => {
   let curr = arr[0];

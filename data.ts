@@ -35,8 +35,8 @@ export const triumv: WorkoutRegiment = {
       id: "Week 2",
       sets: [
         { repetitions: 3, ormDecimal: 0.7 },
-        { repetitions: 3, ormDecimal: 0.8 },
-        { repetitions: 3, ormDecimal: 0.9 },
+        { repetitions: 15, ormDecimal: 0.08 },
+        { repetitions: 1, ormDecimal: 4.9 },
       ],
     },
     "Week 3": {

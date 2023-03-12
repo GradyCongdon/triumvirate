@@ -33,14 +33,13 @@
     border-right: 0;
   }
   .title {
-    // font-size: clamp(1rem, 5vw, 1.25rem);
     font-size: 1.25rem;
   }
   .logo {
     font-size: 1.7rem;
     text-shadow: 0 0 3px var(--accent);
     filter: blur(0.5px);
-    // transform: rotate(-2deg);
+    color: var(--accent);
   }
 }
 

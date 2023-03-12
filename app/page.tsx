@@ -3,6 +3,7 @@ import styles from "@/styles/page.module.scss";
 
 import { Actions } from "@/components/Actions";
 import { ExerciseORM } from "@/components/ExerciseORM";
+import { FAB } from "@/components/FAB";
 import { OrmTable } from "@/components/OrmTable";
 import { Select } from "@/components/Select";
 import { Selector } from "@/components/Selector";
@@ -48,6 +49,12 @@ export default function Home() {
   const selectedWorkoutExercises = selectedWorkout.exercises;
 
   const selectedExerciseORM = person.exerciseORMs[exerciseId];
+  const next = () => {
+    const current = selectedWorkoutExercises.indexOf(exerciseId);
+    setExerciseId(
+      selectedWorkoutExercises[(current + 1) % selectedWorkoutExercises.length]
+    );
+  };
 
   // const Breadcrumbs = (
   //   <div className={styles.breadcrumbs}>
@@ -201,12 +208,13 @@ export default function Home() {
   );
   return (
     <>
-      {Header}
       <main className={styles.main}>
         {/* {BreadcrumbLabels} */}
         {/* {Breadcrumbs} */}
         {!selectedExerciseORM ? MissingORM : Exercise()}
       </main>
+      {Header}
+      <FAB onClick={next} />
     </>
   );
 }

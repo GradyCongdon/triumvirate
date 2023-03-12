@@ -7,8 +7,11 @@ import {
   getOrmDecimalWeight,
   getWeightDiff,
 } from "@/utils";
+import { IBM_Plex_Mono as Mono } from "next/font/google";
 import { useState } from "react";
 import styles from "./WorkoutSets.module.scss";
+
+const mono = Mono({ subsets: ["latin"], weight: "300" });
 
 type Checked = Record<number, boolean>;
 type WorkoutSetsProps = {
@@ -17,7 +20,7 @@ type WorkoutSetsProps = {
 };
 export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
   const [showTags, setShowTags] = useState(false);
-  const [showActualWeight, setShowActualWeight] = useState(false);
+  const [showActualWeight, setShowActualWeight] = useState(true);
   const [showDumbellOrm, setShowDumbellOrm] = useState(false);
   const [showPercentage, setShowPercentage] = useState(true);
   const defaultChecked = sets.reduce((acc, s) => {
@@ -32,7 +35,21 @@ export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
 
   return (
     <div className={styles.sets}>
-      <h1>Sets</h1>
+      <h1 className={styles.title}>
+        Sets
+        <div className={styles.liftType}>
+          <label htmlFor="showActualWeight">
+            {showActualWeight ? "Weight" : "Dumbell"}
+          </label>
+          <input
+            type="checkbox"
+            id="showActualWeight"
+            name="showActualWeight"
+            checked={showActualWeight}
+            onChange={() => setShowActualWeight(!showActualWeight)}
+          />
+        </div>
+      </h1>
       <div className={styles.sets}>
         {sets.map((s) => {
           const reps = s.repetitions;
@@ -46,25 +63,39 @@ export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
           const trueOrmPercentage = formatDecimalPercentage(trueOrmAmount);
           const lift = showActualWeight ? weight : closestDumbell;
           const liftFormat = formatWeight(lift);
+          const input = `input--${s.ormDecimal}`;
 
           return (
             <div key={key} className={styles.set}>
-              <div className={styles.ll}>
-                <div className={styles.lift}>
-                  <span className={styles.reps}>{reps}</span>
-                  <span className={styles.repsX}>&times;</span>
-                  <span className={styles.liftAmount}>
-                    {liftFormat.rounded}
+              <label
+                htmlFor={input}
+                className={`${styles.ll} ${mono.className}`}
+              >
+                <span className={styles.reps}>{reps}</span>
+                <span className={styles.repsX}>&times;</span>
+                <span className={styles.liftAmount}>
+                  {liftFormat.ones}
+                  <span
+                    style={
+                      {
+                        // display: lift.amount >= 100 ? "none" : "inline",
+                      }
+                    }
+                    className={styles.decimal}
+                  >
+                    .{liftFormat.decimal}
                   </span>
-                  <span className={styles.liftUnit}> {weight.unit}</span>
-                </div>
+                </span>
+                <span className={styles.liftUnit}> {weight.unit}</span>
                 <input
                   type="checkbox"
+                  name={input}
+                  id={input}
                   checked={checked[s.ormDecimal]}
                   onChange={() => set(checked, s.ormDecimal)}
                   className={styles.mark}
                 ></input>
-              </div>
+              </label>
               <div
                 className={styles.tags}
                 style={{ display: showTags ? "flex" : "none" }}
@@ -88,16 +119,6 @@ export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
         })}
       </div>
       <div className={styles.settings}>
-        <div>
-          Show True ORM Weight:
-          <input
-            type="checkbox"
-            id="showActualWeight"
-            name="showActualWeight"
-            checked={showActualWeight}
-            onChange={() => setShowActualWeight(!showActualWeight)}
-          />
-        </div>
         <div>
           Show Tags:
           <input
