@@ -42,9 +42,9 @@ export const triumv: WorkoutRegiment = {
     "Week 3": {
       id: "Week 3",
       sets: [
-        { repetitions: 5, ormDecimal: 0.75 },
-        { repetitions: 3, ormDecimal: 0.85 },
-        { repetitions: 1, ormDecimal: 0.95 },
+        { repetitions: 15, ormDecimal: 0.75 },
+        { repetitions: 13, ormDecimal: 0.85 },
+        { repetitions: 21, ormDecimal: 0.95 },
       ],
     },
     "Week 4": {
@@ -64,6 +64,14 @@ export const grady: Person = {
     [benchPress]: {
       date: "2023-03-09T22:28:21.072Z",
       weight: { amount: 32.5, unit: "kg" },
+    },
+    [dumbellCurl]: {
+      date: "2023-03-12T22:28:21.072Z",
+      weight: { amount: 20, unit: "kg" },
+    },
+    [dumbellRow]: {
+      date: "2023-03-09T22:28:21.072Z",
+      weight: { amount: 25, unit: "kg" },
     },
   },
 };

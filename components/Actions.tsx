@@ -10,7 +10,12 @@ export const Actions = ({ title, open, onClick }: Props) => {
   return (
     <div className={styles.actions}>
       <div>
-        <span className={styles.logo}>3</span>
+        <span
+          className={styles.logo}
+          onClick={() => window.scrollTo({ top: 0 })}
+        >
+          3
+        </span>
       </div>
       <button className={styles.title} onClick={onClick}>
         {title}

@@ -1,27 +1,24 @@
-import styles from "@/styles/page.module.scss";
-import { Exercise, ExerciseId } from "@/types/Exercise";
 import { Weight } from "@/types/Weight";
+import { formatWeight } from "@/utils";
+import styles from "./ExerciseORM.module.scss";
 
 type ExerciseOrmProps = {
-  personExerciseWeight: Weight;
-  exercise: Exercise;
-  exerciseId: ExerciseId;
+  onClick: () => void;
+  ormWeight: Weight;
 };
-export const ExerciseORM = ({
-  exercise,
-  exerciseId,
-  personExerciseWeight,
-}: ExerciseOrmProps) => {
+export const ExerciseORM = ({ onClick, ormWeight }: ExerciseOrmProps) => {
+  const weight = formatWeight(ormWeight);
   return (
-    <div className={styles.orm}>
-      {exerciseId} ORM: &nbsp;
-      <b>
-        {personExerciseWeight.amount}
-        {personExerciseWeight.unit}
-      </b>
-      <span className={styles.ormDate}>
-        ({new Date(exercise.date).toDateString()})
-      </span>
-    </div>
+    <label htmlFor="orm" className={`${styles.ExerciseORM}`}>
+      <h1>ORM:</h1>
+      <button
+        id="orm"
+        name="orm"
+        className={`tag--action blue ${styles.tagAction}`}
+        onClick={onClick}
+      >
+        {weight.withUnit}
+      </button>
+    </label>
   );
 };

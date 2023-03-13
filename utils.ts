@@ -32,6 +32,17 @@ export const getWeightDiff = (a: Weight, b: Weight): Diff => {
   };
 };
 
+export const getDiffColor = (diff: Diff) => {
+  switch (diff.sign) {
+    case "+":
+      return "var(--green)";
+    case "-":
+      return "var(--red)";
+    default:
+      return "var(--blue)";
+  }
+};
+
 type WeightFormatted = {
   rounded: string;
   withUnit: string;

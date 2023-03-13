@@ -4,6 +4,7 @@ import {
   formatDecimalPercentage,
   formatWeight,
   getClosestDumbell,
+  getDiffColor,
   getOrmDecimalWeight,
   getWeightDiff,
 } from "@/utils";
@@ -19,14 +20,22 @@ type WorkoutSetsProps = {
   exercise: Exercise;
 };
 export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
-  const [showTags, setShowTags] = useState(false);
-  const [showActualWeight, setShowActualWeight] = useState(true);
+  const [showTags, setShowTags] = useState(true);
+  const [showActualWeight, setShowActualWeight] = useState(false);
   const [showDumbellOrm, setShowDumbellOrm] = useState(false);
   const [showPercentage, setShowPercentage] = useState(true);
+  const max = {
+    reps: 0,
+    weight: 0,
+  };
   const defaultChecked = sets.reduce((acc, s) => {
     acc[s.ormDecimal] = false;
+    if (s.repetitions > max.reps) max.reps = s.repetitions;
+    const weight = getOrmDecimalWeight(exercise.weight, s.ormDecimal);
+    if (weight.amount > max.weight) max.weight = weight.amount;
     return acc;
   }, {} as Checked);
+  const size = max.reps >= 10 || max.weight >= 100 ? "large" : "small";
 
   const [checked, setChecked] = useState<Checked>(defaultChecked);
   const set = (checked: Checked, s: number) => {
@@ -39,7 +48,7 @@ export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
         Sets
         <div className={styles.liftType}>
           <label htmlFor="showActualWeight">
-            {showActualWeight ? "Weight" : "Dumbell"}
+            {showActualWeight ? "Weight" : "Dumbells"}
           </label>
           <input
             type="checkbox"
@@ -57,7 +66,7 @@ export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
           let weight = getOrmDecimalWeight(exercise.weight, s.ormDecimal);
           const closestDumbell = getClosestDumbell(weight);
           const diff = getWeightDiff(closestDumbell, weight);
-          const diffColor = diff.sign === "+" ? "var(--green)" : "var(--red)";
+          const diffColor = getDiffColor(diff);
           const ormPercentage = formatDecimalPercentage(s.ormDecimal);
           const trueOrmAmount = closestDumbell.amount / exercise.weight.amount;
           const trueOrmPercentage = formatDecimalPercentage(trueOrmAmount);
@@ -69,7 +78,7 @@ export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
             <div key={key} className={styles.set}>
               <label
                 htmlFor={input}
-                className={`${styles.ll} ${mono.className}`}
+                className={`${styles.ll} ${styles[size]} ${mono.className}`}
               >
                 <span className={styles.reps}>{reps}</span>
                 <span className={styles.repsX}>&times;</span>
@@ -106,7 +115,9 @@ export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
                 <div
                   className={styles.diff}
                   style={{
-                    backgroundColor: diffColor,
+                    backgroundColor: "var(--background)",
+                    border: `1px solid ${diffColor}`,
+                    color: diffColor,
                     display: !showPercentage ? "none" : "initial",
                   }}
                 >
@@ -118,7 +129,7 @@ export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
           );
         })}
       </div>
-      <div className={styles.settings}>
+      {/* <div className={styles.settings}>
         <div>
           Show Tags:
           <input
@@ -149,23 +160,7 @@ export const WorkoutSets = ({ sets, exercise }: WorkoutSetsProps) => {
             onChange={() => setShowPercentage(!showPercentage)}
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
-
-// const Actual = () => (
-
-//     <div>
-//                 <span className={styles.setWeightUnit}>
-//                   Actual:
-//                   {weightFormat.withUnit}
-//                 </span>
-//               </div>
-//               <div>
-//                 Dumbell ORM:
-//                 <span className={styles.dumbellOrmPercent}>
-//                   dumbellOrmPercent
-//                 </span>
-//               </div>
-// )

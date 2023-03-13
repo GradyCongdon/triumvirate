@@ -1,22 +1,17 @@
 .sets {
   --mark-size: 64px;
   h1 {
-    font-size: 2rem;
-    font-weight: 200;
-    margin-top: 0.5rem;
-    margin-bottom: 0.75rem;
-    letter-spacing: 1px;
     border-bottom: 0.5px solid var(--bg-medium);
   }
   .set {
     margin: 0;
-    padding: 0;
+    padding: 0 0.5rem;
     border-bottom: 1px solid var(--bg-medium);
   }
 
   .liftAmount,
   .reps {
-    font-size: 3.6rem;
+    font-size: 4rem;
     // font-weight: 400;
     display: inline-block;
   }
@@ -27,7 +22,7 @@
     font-size: 1rem;
     line-height: 3.5rem;
     align-self: end;
-    justify-self: start;
+    justify-self: flex-start;
     padding-left: 4px;
     position: relative;
     top: 1px;
@@ -44,8 +39,9 @@
     display: flex;
     gap: 0.25rem;
     padding: 0;
-    padding-bottom: 0.75rem;
-    margin-top: -0.33rem; // Bad, figure out lineheight
+    margin-bottom: 0.75rem;
+    margin-top: -0.5rem;
+    opacity: 0.5;
   }
   .liftType,
   .diff,
@@ -56,19 +52,23 @@
     border-radius: 100px;
     font-size: 1rem;
     padding: 0.05rem 0.75rem;
-    opacity: 0.45;
     font-weight: 400;
   }
   .orm {
-    background-color: var(--bg-medium);
+    background-color: var(--background);
+    border: 1px solid var(--accent);
     color: var(--accent);
   }
   .liftType {
     opacity: 1;
-    background-color: var(--background);
-    border: 1px solid var(--accent);
+    // background-color: var(--background);
+    background-color: var(--accent);
+    // border: px double var(--accent);
     position: relative;
-    color: var(--accent);
+    // color: var(--accent);
+    outline: 1.5px solid var(--accent);
+    outline-offset: 3px;
+    color: var(--background);
 
     input[type="checkbox"] {
       visibility: hidden;
@@ -81,35 +81,47 @@
     justify-content: space-between;
   }
   .ll {
-    --o: var(--mark-size);
-    --t: calc(var(--mark-size) * 2);
-    --h: calc(var(--mark-size) / 2);
-    --q: calc(var(--mark-size) / 4);
-    // font-family: "Space Mono" "Courier New", Courier, monospace;
-    margin: 0.5rem 1rem;
-    margin-right: 0.5rem;
-    display: grid;
-    grid-template-columns:
+    &.large {
+      --o: var(--mark-size);
+      --t: calc(var(--mark-size) * 2);
+      --h: calc(var(--mark-size) / 2);
+      --q: calc(var(--mark-size) / 4);
+      // font-family: "Space Mono" "Courier New", Courier, monospace;
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+      // margin-left: 1rem;
+      margin-right: 0.5rem;
+      display: grid;
+      grid-template-columns:
       // var(--o)
 
-      4fr
-      // var(--h)
-      4fr
-      // var(--t)
-      8fr
-      // var(--h)
-      2fr
-      8fr;
+        4fr
+        // var(--h)
+        4fr
+        // var(--t)
+        8fr
+        // var(--h)
+        2fr
+        8fr;
 
-    justify-items: end;
-    align-items: center;
+      justify-items: end;
+      align-items: center;
 
-    // span {
-    //   display: inline-block;
-    //   height: var(--mark-size);
-    //   line-height: 0;
-    //   vertical-align: middle;
-    // }
+      // span {
+      //   display: inline-block;
+      //   height: var(--mark-size);
+      //   line-height: 0;
+      //   vertical-align: middle;
+      // }
+    }
+    &.small {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      .mark {
+        margin-inline-start: auto;
+      }
+    }
 
     input[type="checkbox"] {
       display: grid;
@@ -129,7 +141,7 @@
     }
 
     input[type="checkbox"]:checked::before {
-      transform: scale(0.8);
+      transform: scale(0.85);
       z-index: 0;
       background-color: var(--accent);
     }

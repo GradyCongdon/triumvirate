@@ -68,17 +68,11 @@ h6 {
   isolation: isolate;
 }
 :root {
-  --purple-bg: rgb(20, 2, 22);
-  // --purple-bg: rgb(52, 32, 103);
-  --white-purple: rgb(250, 239, 228);
-  // --purple-accent: rgb(53, 0, 57);
-  --purple-accent: rgb(249, 214, 33);
   --yellow: rgb(254, 254, 34);
   --yellow-black: rgb(3, 4, 1);
-  //rgb 136	56	72
-  --red: rgba(159, 2, 33, 0.725);
-  --green: rgba(21, 89, 0, 0.623);
-  //--neon 204	250	71
+  --red: rgb(235, 0, 47);
+  --green: rgb(54, 230, 0);
+  --blue: rgb(0, 119, 230);
   --neon: rgb(204, 250, 71);
   --dark: rgb(32, 32, 35);
   --background-html: rgb(29, 29, 32);
@@ -86,50 +80,37 @@ h6 {
   --bg-medium: rgb(52, 52, 55);
   --white: rgb(234, 234, 234);
 
-  // --background: var(--purple-bg);
-  // --background: var(--red);
   --background: var(--dark);
-
-  // --color: var(--white-purple);
   --color: var(--white);
-  // --accent: var(--purple-accent);
   --accent: var(--neon);
+
   --header-size: 72px;
   --max-width: 580px;
 
-  // --background: var(--yellow);
-  // --color: var(--yellow-black);
-  // --accent: var(--yellow-black);
-
-  // --background: var(--yellow-black);
-  // --color: var(--yellow);
-  // --accent: var(--yellow);
-  --shadow-color: 60deg 90% 30%;
-  --shadow-elevation-low: 0.1px 0.2px 0.2px hsl(var(--shadow-color) / 0.51),
-    0.2px 0.4px 0.5px -1.6px hsl(var(--shadow-color) / 0.44),
-    0.4px 1px 1.1px -3.1px hsl(var(--shadow-color) / 0.37);
-  --shadow-elevation-medium: 0.1px 0.2px 0.2px hsl(var(--shadow-color) / 0.53),
-    0.3px 0.7px 0.8px -1px hsl(var(--shadow-color) / 0.48),
-    0.9px 1.8px 2.1px -2.1px hsl(var(--shadow-color) / 0.42),
-    2.2px 4.8px 5.4px -3.1px hsl(var(--shadow-color) / 0.37);
-  --shadow-elevation-high: 0.1px 0.2px 0.2px hsl(var(--shadow-color) / 0.5),
-    0.5px 1.2px 1.3px -0.4px hsl(var(--shadow-color) / 0.47),
-    1px 2.3px 2.6px -0.9px hsl(var(--shadow-color) / 0.45),
-    1.8px 4px 4.5px -1.3px hsl(var(--shadow-color) / 0.42),
-    3.1px 6.7px 7.6px -1.8px hsl(var(--shadow-color) / 0.39),
-    5.1px 11px 12.5px -2.2px hsl(var(--shadow-color) / 0.37),
-    7.9px 17.1px 19.4px -2.7px hsl(var(--shadow-color) / 0.34),
-    11.9px 25.7px 29.1px -3.1px hsl(var(--shadow-color) / 0.32);
+  --shadow-color: 61deg 51% 37%;
+  --shadow-elevation-low: 0.1px 0.1px 0.1px hsl(var(--shadow-color) / 0.97),
+    0.2px 0.2px 0.2px -2.3px hsl(var(--shadow-color) / 0.67),
+    0.6px 0.5px 0.6px -4.6px hsl(var(--shadow-color) / 0.37);
+  --shadow-elevation-medium: 0.1px 0.1px 0.1px hsl(var(--shadow-color) / 1),
+    0.3px 0.2px 0.3px -1.5px hsl(var(--shadow-color) / 0.78),
+    1px 0.8px 1px -3.1px hsl(var(--shadow-color) / 0.55),
+    3px 2.5px 3.1px -4.6px hsl(var(--shadow-color) / 0.31);
+  --shadow-elevation-high: 0.1px 0.1px 0.1px hsl(var(--shadow-color) / 0.94),
+    0.3px 0.2px 0.3px -0.7px hsl(var(--shadow-color) / 0.84),
+    0.7px 0.6px 0.7px -1.3px hsl(var(--shadow-color) / 0.73),
+    1.8px 1.5px 1.9px -2px hsl(var(--shadow-color) / 0.62),
+    3.7px 3.1px 3.9px -2.7px hsl(var(--shadow-color) / 0.51),
+    6.8px 5.7px 7.1px -3.3px hsl(var(--shadow-color) / 0.4),
+    11.5px 9.6px 12px -4px hsl(var(--shadow-color) / 0.29),
+    18px 15.1px 18.9px -4.6px hsl(var(--shadow-color) / 0.18);
 }
 html {
   font-size: 18px;
-  background-color: var(--background-html);
   color: var(--color);
   font-weight: 100;
-  // @media screen and (min-width: 768px) {
-  //   font-size: 32px;
-  // }
+  background-color: var(--background);
 }
+
 body {
   background-color: var(--background);
   max-width: var(--max-width);
@@ -139,15 +120,9 @@ body {
   }
 }
 
-// input {
-//   padding: 0.5rem;
-//   font-size: 32px;
-// }
-// td {
-//   padding: 4px;
-// }
 main {
   padding-top: var(--header-size);
+  min-height: 103vh; // Roughly accounts for FAB
 }
 input {
   accent-color: var(--accent);
@@ -160,22 +135,70 @@ select {
   background-color: var(--background);
   color: var(--color);
 }
-// h1,
-// h2,
-// h3,
-// h4,
-// h5,
-// h6 {
-//   margin: 8px;
-// }
-// h1 {
-//   font-weight: normal;
-// }
-// h3 {
-//   font-weight: normal;
-// }
-// th,
-// td {
-//   text-align: center;
-//   border-bottom: 1px solid black;
-// }
+
+h1,
+h2 {
+  font-size: 2rem;
+  font-weight: 200;
+  margin-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+h2 {
+  font-size: 1.8rem;
+}
+
+.tag--action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  font-size: 1rem;
+  padding: 0.05rem 0.75rem;
+  font-weight: 400;
+  position: relative;
+  margin: 6px;
+  min-width: 48px;
+  outline-offset: 3px;
+  color: var(--background);
+  appearance: none;
+  border: none;
+  &.accent {
+    background-color: var(--accent);
+    outline: 1.5px solid var(--accent);
+  }
+  &.blue {
+    // background-color: var(--blue);
+    background-color: var(--background);
+    outline: 1.5px solid var(--blue);
+    color: var(--white);
+  }
+}
+
+input[type="text"],
+input[type="number"],
+input[type="telephone"] {
+  appearance: none;
+  border: none;
+  background-color: var(--background);
+  border-bottom: 2px solid var(--bg-medium);
+  color: var(--white);
+  font-size: 1.2rem;
+  border-radius: 0;
+}
+
+select {
+  appearance: none;
+  display: block;
+  border: 0;
+  padding: 0 0.5rem;
+
+  border: 0;
+  font-weight: 600;
+  font-size: 1.25rem;
+  :focus-visible,
+  :focus-within,
+  :focus {
+    outline: 1px solid var(--accent);
+  }
+}

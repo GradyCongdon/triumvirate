@@ -4,6 +4,7 @@ import { OrmDecimalWeights } from "@/types/Weight";
 import {
   formatWeight,
   getClosestDumbell,
+  getDiffColor,
   getOrmDecimalWeight,
   getWeightDiff,
 } from "@/utils";
@@ -46,7 +47,7 @@ export const OrmTable = ({ exercise, stepSize }: OrmTableProps) => {
               const closest = formatWeight(closestDumbell);
               const actual = formatWeight(orm);
               const diff = getWeightDiff(closestDumbell, orm);
-              const diffColor = diff.sign === "+" ? "green" : "red";
+              const diffColor = getDiffColor(diff);
 
               return (
                 <>

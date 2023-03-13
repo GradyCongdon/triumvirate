@@ -76,6 +76,7 @@
   max-width: var(--max-width);
   top: 0;
   background-color: var(--background);
+  box-shadow: 0 0 24px 8px rgba(133, 133, 133, 0.041);
 }
 .selectors {
   // transition: opacity 0.2s ease-in-out;
@@ -86,4 +87,33 @@
 }
 .main {
   margin: 0 1rem;
+}
+
+.ormInput {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  input {
+    margin-left: auto;
+    font-size: 5.5rem;
+    &::placeholder {
+      font-size: 5.5rem;
+    }
+    border-bottom: 0;
+    width: 70%;
+    text-align: end;
+    font-weight: 200;
+  }
+  select {
+    font-size: 4rem;
+    font-weight: 200;
+    width: 30%;
+  }
+}
+.setORM {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  min-height: 48px;
+  width: 100%;
 }

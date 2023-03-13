@@ -1,19 +1,23 @@
 .FAB {
-  width: 64px;
-  height: 64px;
+  --size: 72px;
+  --half-size: 26px;
+  min-width: var(--size);
+  width: var(--size);
+  min-height: var(--size);
+  height: var(--size);
   border-radius: 100%;
   background-color: var(--accent);
   color: black;
-  font-size: 2.5rem;
   position: fixed;
-  bottom: 32px;
-  right: 24px;
+  bottom: var(--half-size);
+  right: var(--half-size);
   appearance: none;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 0;
-  box-shadow: var(--shadow-elevation-medium);
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
   svg {
     transform: scale(2.5);
   }
