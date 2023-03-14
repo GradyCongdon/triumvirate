@@ -86,6 +86,7 @@ export type State = {
   workoutId: WorkoutId;
   exerciseId: ExerciseId;
   stepSize: StepSize;
+  showSection: boolean;
 };
 
 export const exampleState: State = {
@@ -96,16 +97,9 @@ export const exampleState: State = {
   workoutId: "Day 1",
   exerciseId: benchPress,
   stepSize: 5,
+  showSection: false,
 };
 
 export const isValid = (state: any): boolean => {
-  return (
-    state &&
-    state.workoutRegiment &&
-    state.person &&
-    state.workoutTemplateId &&
-    state.workoutId &&
-    state.exerciseId &&
-    state.stepSize
-  );
+  return state && state.workoutRegiment;
 };
