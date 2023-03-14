@@ -1,3 +1,4 @@
+import { top } from "@/utils";
 import styles from "./Actions.module.scss";
 
 type Props = {
@@ -10,12 +11,9 @@ export const Actions = ({ title, open, onClick }: Props) => {
   return (
     <div className={styles.actions}>
       <div>
-        <span
-          className={styles.logo}
-          onClick={() => window.scrollTo({ top: 0 })}
-        >
+        <button className={styles.logo} onClick={top}>
           3
-        </span>
+        </button>
       </div>
       <button className={styles.title} onClick={onClick}>
         {title}

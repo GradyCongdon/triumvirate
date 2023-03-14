@@ -11,8 +11,7 @@ import { WorkoutSets } from "@/components/WorkoutSets";
 import { useHasRendered } from "@/hooks/useHasRendered";
 import { useStoredState } from "@/hooks/useStoredState";
 import { Person } from "@/types/Person";
-
-const top = () => window.scrollTo({ top: 0, behavior: "smooth" });
+import { top } from "@/utils";
 
 export default function Home() {
   const {
@@ -75,6 +74,11 @@ export default function Home() {
     </>
   );
 
+  const toggleHeader = () => {
+    setShowSection(!showSection);
+    top();
+  };
+
   const Header = (
     <header
       className={styles.header}
@@ -83,11 +87,7 @@ export default function Home() {
         minHeight: showSection ? "100vh" : "unset",
       }}
     >
-      <Actions
-        open={showSection}
-        title={exerciseId}
-        onClick={() => setShowSection(!showSection)}
-      />
+      <Actions open={showSection} title={exerciseId} onClick={toggleHeader} />
       <div
         className={styles.selectors}
         style={{

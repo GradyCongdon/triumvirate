@@ -77,7 +77,6 @@ export const grady: Person = {
 };
 
 type StepSize = number;
-type ShowSection = boolean;
 
 export type State = {
   id: number;
@@ -87,7 +86,6 @@ export type State = {
   workoutId: WorkoutId;
   exerciseId: ExerciseId;
   stepSize: StepSize;
-  showSection: ShowSection;
 };
 
 export const exampleState: State = {
@@ -98,7 +96,6 @@ export const exampleState: State = {
   workoutId: "Day 1",
   exerciseId: benchPress,
   stepSize: 5,
-  showSection: false,
 };
 
 export const isValid = (state: any): boolean => {
@@ -109,7 +106,6 @@ export const isValid = (state: any): boolean => {
     state.workoutTemplateId &&
     state.workoutId &&
     state.exerciseId &&
-    state.stepSize &&
-    state.showSection
+    state.stepSize
   );
 };

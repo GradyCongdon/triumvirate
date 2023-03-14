@@ -99,3 +99,5 @@ export const getClosestDumbell = (weight: Weight): Weight => {
     unit: weight.unit,
   };
 };
+
+export const top = () => window.scrollTo({ top: 0, behavior: "smooth" });
